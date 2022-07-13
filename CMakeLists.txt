@@ -4,7 +4,7 @@ find_package(llvm-mos-sdk REQUIRED)
 project(dodo-games)
 
 set(CMAKE_CXX_STANDARD 17)
-include_directories(api)
+include_directories(SYSTEM api)
 add_compile_options(-Oz)
 
 add_subdirectory(menu)

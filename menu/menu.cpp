@@ -1,6 +1,6 @@
 #include "menu.hpp"
-#include "api.h"
 
+#include <api.h>
 #include <string.h>
 
 constexpr int8_t kCharWidth = 7;
