@@ -1,0 +1,15 @@
+cmake_minimum_required(VERSION 3.18)
+set(LLVM_MOS_PLATFORM dodo)
+find_package(llvm-mos-sdk REQUIRED)
+project(dodo-games)
+
+set(CMAKE_CXX_STANDARD 17)
+include_directories(api)
+add_compile_options(-Oz)
+
+add_subdirectory(menu)
+add_subdirectory(fixed_point)
+
+add_executable(foo main.cpp)
+target_link_libraries(foo PRIVATE menu fixed_point)
+set_target_properties(foo PROPERTIES OUTPUT_NAME "fram.bin")
