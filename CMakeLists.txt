@@ -4,8 +4,12 @@ find_package(llvm-mos-sdk REQUIRED)
 project(dodo-games)
 
 set(CMAKE_CXX_STANDARD 17)
-include_directories(SYSTEM api)
-add_compile_options(-Oz)
+
+# This is to make clangd find dodo platform include directories
+unset(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES)
+unset(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES)
+include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/dodo/include)
+include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/common/include)
 
 add_subdirectory(menu)
 add_subdirectory(fixed_point)
