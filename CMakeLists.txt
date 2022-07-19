@@ -11,6 +11,8 @@ unset(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES)
 include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/dodo/include)
 include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/common/include)
 
+add_compile_options(-mcpu=mos65c02)
+
 add_subdirectory(menu)
 add_subdirectory(fixed_point)
 
