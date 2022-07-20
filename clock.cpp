@@ -1,18 +1,18 @@
 #include <api.h>
 
-#include "angle.hpp"
 #include "draw_circle.hpp"
+#include "trig.hpp"
 
 int main() {
   api_init();
-  unsigned char angleVal = 0;
+  unsigned char angle = 0;
+  CLEAR();
+  draw_circle(64, 32, 31);
   for (;;) {
-    CLEAR();
-    draw_circle(64, 32, 31);
-    auto angle = Angle(angleVal);
-    DRAW_LINE(64, 32, 64 + angle.cos(31), 32 - angle.sin(31), 1);
+    DRAW_LINE(64, 32, 64 + cos(angle, 30), 32 - sin(angle, 30), 0);
+    --angle;
+    DRAW_LINE(64, 32, 64 + cos(angle, 30), 32 - sin(angle, 30), 1);
     DISPLAY();
     WAIT();
-    ++angleVal;
   }
 }
