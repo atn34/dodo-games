@@ -28,13 +28,11 @@ constexpr double sin(double x) {
   return result;
 }
 
-constexpr uint8_t to_table(double x) {
-  return uint8_t((sin(x) + 1.f) / 2.f * 255.f);
-}
+constexpr int8_t to_table(double x) { return int8_t(sin(x) * 127.f); }
 
 constexpr double tau = 2 * 3.14159265;
 
-constexpr uint8_t sin_table[] = {
+constexpr int8_t sin_table[] = {
     to_table(tau * 0. / 256.),   to_table(tau * 1. / 256.),
     to_table(tau * 2. / 256.),   to_table(tau * 3. / 256.),
     to_table(tau * 4. / 256.),   to_table(tau * 5. / 256.),
@@ -166,6 +164,7 @@ constexpr uint8_t sin_table[] = {
 
 } // namespace
 
-int sin(uint8_t angle, uint8_t radius) {
-  return int(radius) * (int(sin_table[angle]) - 128) / 128;
+int8_t sin(uint8_t angle, uint8_t radius) {
+  return (int(radius) * sin_table[angle]) / 127;
 }
+int8_t cos(uint8_t angle, uint8_t radius) { return sin(64 - angle, radius); }
