@@ -1,9 +1,13 @@
 #pragma once
 
+#include <inttypes.h>
+
 template <int kShiftAmount, class IntType> struct FixedPoint {
 
+  explicit constexpr FixedPoint(double x)
+      : shiftedAmount(IntType((IntType(1) << kShiftAmount) * x)) {}
+
   FixedPoint() : shiftedAmount(0) {}
-  FixedPoint(IntType v) : shiftedAmount(v << kShiftAmount) {}
 
   FixedPoint<kShiftAmount, IntType>
   operator+(FixedPoint<kShiftAmount, IntType> rhs) const {
@@ -50,5 +54,3 @@ template <int kShiftAmount, class IntType> struct FixedPoint {
 private:
   IntType shiftedAmount;
 };
-
-using Real = FixedPoint<2, int>;

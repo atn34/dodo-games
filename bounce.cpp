@@ -16,6 +16,8 @@
 #define TILE_ROWS 8
 #define TILE_COLUMNS 16
 
+using Real = FixedPoint<2, int>;
+
 struct GameState {
   uint8_t block_x;
   uint8_t block_y;
@@ -89,13 +91,13 @@ static void processInput(byte buttons) {
       state.block_moves_available > 0) {
     if ((buttons & 8) == 0) {
       // Dash right
-      state.block_velocity_y = 0;
+      state.block_velocity_y = Real(0);
       state.block_moves_available -= 1;
       state.block_x += 24;
     }
     if ((buttons & 4) == 0) {
       // Dash left
-      state.block_velocity_y = 0;
+      state.block_velocity_y = Real(0);
       state.block_moves_available -= 1;
       state.block_x -= 24;
     }
@@ -123,14 +125,14 @@ static uint8_t handlePhysics() {
   }
   if (state.block_y < SCREEN_HEIGHT_BEGIN) {
     state.block_y = SCREEN_HEIGHT_BEGIN;
-    state.block_velocity_y = 0;
+    state.block_velocity_y = Real(0);
   }
   if (state.block_x + BLOCK_WIDTH > SCREEN_WIDTH_END) {
     state.block_x = SCREEN_WIDTH_END - BLOCK_WIDTH;
   }
   if (state.block_y + BLOCK_HEIGHT > SCREEN_HEIGHT_END) {
     state.block_y = SCREEN_HEIGHT_END - BLOCK_HEIGHT;
-    state.block_velocity_y = 0;
+    state.block_velocity_y = Real(0);
   }
   last_x = state.last_block_x;
   last_y = state.last_block_y;
@@ -162,10 +164,10 @@ static uint8_t handlePhysics() {
           if (last_y / 8 + !!(last_y & 7) < i &&
               state.block_y / 8 + !!(state.block_y & 7) == i) {
             state.block_y = i * 8 - 8;
-            state.block_velocity_y = 0;
+            state.block_velocity_y = Real(0);
           } else if (last_y / 8 > i && state.block_y / 8 == i) {
             state.block_y = state.block_y / 8 * 8 + 8;
-            state.block_velocity_y = 0;
+            state.block_velocity_y = Real(0);
           }
         }
       }

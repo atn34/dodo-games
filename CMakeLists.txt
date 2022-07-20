@@ -15,6 +15,8 @@ add_compile_options(-mcpu=mos65c02)
 
 add_subdirectory(menu)
 add_subdirectory(fixed_point)
+add_subdirectory(draw_circle)
+add_subdirectory(angle)
 
 function(add_dodo_game game)
     get_filename_component(game_name ${game} NAME_WLE)
@@ -25,3 +27,6 @@ endfunction()
 
 add_dodo_game(bounce.cpp)
 target_link_libraries(bounce PRIVATE menu fixed_point)
+
+add_dodo_game(clock.cpp)
+target_link_libraries(clock PRIVATE draw_circle angle)
