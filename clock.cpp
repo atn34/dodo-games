@@ -17,7 +17,7 @@ uint8_t hours = 0;
 void redraw() {
   uint8_t secondsAngle = 256 / 4 - int(seconds) * 64 / 15;
   uint8_t minutesAngle = 256 / 4 - int(minutes) * 64 / 15;
-  uint8_t hoursAngle = 256 / 4 - int(hours) * 64 / 12;
+  uint8_t hoursAngle = 256 / 4 - int(hours) * 64 / 3;
   CLEAR();
   draw_circle(clockCenterX, clockCenterY, clockRadius);
   DRAW_LINE(clockCenterX, clockCenterY, 64 + cos(secondsAngle, secondsRadius),
