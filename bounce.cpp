@@ -367,18 +367,12 @@ int main() {
 
 BEGIN_GAME:
   uint32_t timer = 0;
-  level = menu(
-      {
-          "level 1",
-          "level 2",
-          "level 3",
-          "level 4",
-          "level 5",
-          "level 6",
-          "level 7",
-          "level 8",
-      },
-      1, 4, 7, 14, level);
+
+  static const char *levelNames[] = {
+      "level 1", "level 2", "level 3", "level 4",
+      "level 5", "level 6", "level 7", "level 8",
+  };
+  level = menu(levelNames, 1, 4, 7, 14, level);
 
   levels[level]();
 
