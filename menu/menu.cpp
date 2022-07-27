@@ -20,7 +20,7 @@ uint8_t menu_impl(const char **options, uint8_t length, int8_t beginRow,
 
   uint8_t horizontalScroll = 0;
 
-  const int size = int(width) * int(height + 1);
+  const int size = int(width) * int(height + 8);
   uint8_t background[size];
   COPY_BACKGROUND(background, beginColumn * kCharWidth, beginRow * kCharHeight,
                   width, height, 0 /*vmem -> buffer*/);
