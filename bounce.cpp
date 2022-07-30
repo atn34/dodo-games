@@ -358,10 +358,32 @@ const char *itoa(uint32_t n) {
   return "?";
 }
 
+#include "bounce-splash.h"
+
+uint8_t splash[1024];
+
+void decode_rle(const uint8_t *encoded, int len, uint8_t *out) {
+  for (int i = 0; i < len; i += 2) {
+    int len = encoded[i];
+    memset(out, encoded[i + 1], len);
+    out += len;
+  }
+}
+
 int main() {
   uint8_t status;
   uint8_t level = 0;
   CLEAR();
+  decode_rle(bounce_splash_bin, bounce_splash_bin_len, splash);
+  DRAW_SPRITE((byte *)splash, 0, 0, 128, 64,
+              /*flip*/ 0, DRAW_OR);
+  DISPLAY();
+  while ((~READ_BUTTONS() & 16) == 0)
+    ;
+  while ((~READ_BUTTONS() & 16) != 0)
+    ;
+  CLEAR();
+
   // Initialize the API
   api_init();
 
