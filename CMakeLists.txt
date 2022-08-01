@@ -12,6 +12,7 @@ include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/dodo/includ
 include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/common/include)
 
 add_compile_options(-mcpu=mos65c02)
+# add_link_options(-Wl,--lto-emit-asm)
 
 add_subdirectory(menu)
 add_subdirectory(fixed_point)
@@ -30,3 +31,5 @@ target_link_libraries(bounce PRIVATE menu fixed_point)
 
 add_dodo_game(clock.cpp)
 target_link_libraries(clock PRIVATE draw_circle trig)
+
+add_subdirectory(mercenary)
