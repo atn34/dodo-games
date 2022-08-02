@@ -61,32 +61,15 @@ constexpr Int<IntType> term(IntType s) {
   return Int<IntType>{s};
 }
 
-template <class L, class R> struct Concat {
-  constexpr Concat(L l, R r) : l(l), r(r) {}
-  static constexpr int max_length = L::max_length + R::max_length;
-  constexpr void write(char *&buf) const {
-    l.write(buf);
-    r.write(buf);
-  }
-
-private:
-  L l;
-  R r;
-};
-
-template <class L, class R> constexpr Concat<L, R> operator+(L l, R r) {
-  return Concat{l, r};
-}
 } // namespace detail
 
 // Return a null-terminated string that's the result of formatting and
 // concatenating all arguments. The lifetime of the string ends upon the next
 // call to concat.
 template <class... Ts> const char *concat(Ts &&...ts) {
-  auto expr = (detail::term(ts) + ...);
-  static char result[decltype(expr)::max_length + 1];
+  static char result[(decltype(detail::term(ts))::max_length + ...) + 1];
   char *buf = result;
-  expr.write(buf);
+  (detail::term(ts).write(buf), ...);
   *buf = 0;
   return result;
 }
