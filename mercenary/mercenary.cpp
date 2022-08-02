@@ -1,7 +1,8 @@
-#include <api.h>
-
 #include "player.h"
+#include "string.hpp"
 #include <stdint.h>
+
+#include <api.h>
 
 byte *const frames[] = {(byte *)player_bin, (byte *)player2_bin};
 
@@ -9,6 +10,7 @@ constexpr int kRegenShieldsCooldownInit = 50;
 uint8_t regenShieldsCooldown = 0;
 int8_t health = 64;
 int8_t energy = 64;
+uint16_t money = 0;
 
 void take_damage(int8_t damage) {
   /* take damage */
@@ -98,6 +100,8 @@ int main() {
     DRAW_SPRITE(frames[frame], x, y, 20, 16, 0, DRAW_OR);
     DRAW_LINE(0, 64 - energy, 0, 64, 1);
     DRAW_LINE(127, 64 - health, 127, 64, 1);
+    SET_CURSOR(0, 1);
+    DRAW_STRING(string::concat("$", money));
     DISPLAY();
 
     WAIT();

@@ -1,5 +1,6 @@
 #include "fixed_point.hpp"
 #include "menu.hpp"
+#include "string.hpp"
 
 #include <api.h>
 #include <stdint.h>
@@ -345,19 +346,6 @@ static void initLevel8() {
 static void (*levels[])() = {initLevel1, initLevel2, initLevel3, initLevel4,
                              initLevel5, initLevel6, initLevel7, initLevel8};
 
-const char *itoa(uint32_t n) {
-  static char buf[11];
-  buf[10] = 0;
-  for (int i = 9; i >= 0; --i) {
-    buf[i] = '0' + (n % 10);
-    n /= 10;
-    if (!n) {
-      return buf + i;
-    }
-  }
-  return "?";
-}
-
 constexpr unsigned char bounce_splash_bin[] = {
     0x89, 0x00, 0x02, 0x10, 0x02, 0x20, 0x02, 0x40, 0x01, 0x80, 0x04, 0x00,
     0x02, 0x80, 0x03, 0x40, 0x05, 0x20, 0x07, 0x10, 0x01, 0x20, 0x01, 0x40,
@@ -444,7 +432,7 @@ BEGIN_GAME:
     drawBlock();
 
     SET_CURSOR(0, 0);
-    DRAW_STRING(itoa(timer));
+    DRAW_STRING(string::concat(timer));
 
     // Push video memory to the OLED
     DISPLAY();

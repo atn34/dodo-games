@@ -18,6 +18,7 @@ add_subdirectory(menu)
 add_subdirectory(fixed_point)
 add_subdirectory(draw_circle)
 add_subdirectory(trig)
+add_subdirectory(string)
 
 function(add_dodo_game game)
     get_filename_component(game_name ${game} NAME_WLE)
@@ -27,7 +28,7 @@ function(add_dodo_game game)
 endfunction()
 
 add_dodo_game(bounce.cpp)
-target_link_libraries(bounce PRIVATE menu fixed_point)
+target_link_libraries(bounce PRIVATE menu fixed_point string)
 
 add_dodo_game(clock.cpp)
 target_link_libraries(clock PRIVATE draw_circle trig)
