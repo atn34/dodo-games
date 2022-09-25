@@ -5,12 +5,6 @@ project(dodo-games)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# This is to make clangd find dodo platform include directories
-unset(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES)
-unset(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES)
-include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/dodo/include)
-include_directories(SYSTEM ${llvm-mos-sdk_DIR}/../../../mos-platform/common/include)
-
 add_compile_options(-mcpu=mos65c02)
 # add_link_options(-Wl,--lto-emit-asm)
 
